@@ -37,7 +37,7 @@ namespace AssetManagementWeb.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult Assignlocations()
+        public JsonResult AssignLocations()
         {
             string json = Request.InputStream.ReadToEnd();
             AssignLocationModel inputData =
@@ -55,16 +55,16 @@ namespace AssetManagementWeb.Controllers
                               select l.Id).FirstOrDefault();
 
                 // Haetaan laitteen id-numero koodin perusteella.
-                int AssetId = (from a in entities.Assets
+                int assetId = (from a in entities.Assets
                                   where a.Code == inputData.AssetCode
                                   select a.Id).FirstOrDefault();
 
-                if ((locationId > 0) && (AssetId > 0))
+                if ((locationId > 0) && (assetId > 0))
                 {
                     // Tallennetaan uusi rivi aikaleiman kanssa kantaan
                     Assetlocation1 newEntry = new Assetlocation1();
                     newEntry.LocationId = locationId;
-                    newEntry.AssetId = AssetId;
+                    newEntry.AssetId = assetId;
                     newEntry.LastSeen = DateTime.Now;
 
                     entities.Assetlocations1.Add(newEntry);
@@ -75,7 +75,7 @@ namespace AssetManagementWeb.Controllers
             }
             catch (Exception ex)
             {
-                error = error.GetType().Name + "; " + ex.Message;
+                error = error.GetType().Name + ": " + ex.Message;
             }
             finally
             {

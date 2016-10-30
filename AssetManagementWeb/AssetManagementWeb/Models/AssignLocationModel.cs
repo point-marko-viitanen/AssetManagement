@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssetManagementWeb.Models
 {
-    class AssignLocationModel
+    public class AssignLocationModel
     {
         public string AssetCode { get; set; }
         public string LocationCode { get; set; }
